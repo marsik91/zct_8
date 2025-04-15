@@ -59,8 +59,11 @@ def handle_message():
     data = request.json
     user_message = data.get("message", "").lower()
 
-    # Detect symptoms mentioned in the user's message
-    detected_symptoms = [symptom for symptom in all_symptoms if symptom in user_message]
+    # Detect symptoms by comparing symptom names with underscores replaced by spaces
+    detected_symptoms = [
+        symptom for symptom in all_symptoms
+        if symptom.replace("_", " ") in user_message
+    ]
 
     # Default bot reply
     bot_reply = "Hello! I can help you with health-related questions. Please describe your symptoms."
